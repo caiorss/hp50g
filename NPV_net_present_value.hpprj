@@ -1,0 +1,41 @@
+%%HP: T(0)A(D)F(.);
+@ Argumentos:
+@ Author:     Caio Rodrigues
+@ E-mail:
+@ Version:
+@ Created using HPUserEdit 5 [www.unparche.com]
+
+
+@ Calculates NET PRESENT VALUE NPV
+@ of a cahs flow given in a column matrix 
+@ 
+@ :param M:  Cash flow matrix column i.e.:[[-100][2000][5000]]
+@ :param r:  Interest rate in decimal
+@ :return:   NPV Net Present Value in the Stack
+@ 
+@  ( M r -- NPV )
+´
+  ç M r 
+  ´
+
+M SIZE OBJç DROP DROP
+
+0 'S' STO
+  
+  @FOR LOOP
+  1 SWAP FOR N
+  
+  @ S= S+ M[I]/(1+r)**I
+  M N GET   
+  1 r + N 1 - ^ 
+  /  
+  S + 'S' STO  
+  NEXT
+  @Endfor
+  
+  ª
+  S
+  { S } PURGE
+ª
+
+'NPV' STO

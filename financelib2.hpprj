@@ -1,0 +1,148 @@
+%%HP: T(0)A(D)F(.);
+@ Argumentos:
+@ Author:
+@ E-mail:
+@ Version:
+@ Created using HPUserEdit 5 [www.unparche.com]
+
+DIR
+
+
+@ P = F*(1 + i)^(-n)
+FP2 
+´
+  ç i n
+  ´
+  1 i + n ^ 
+  ª
+ª
+
+@ F = P*(1 + i)^(n)
+PF 
+´
+  ç i n
+  ´
+  1 i + n NEG ^ 
+  ª
+ª
+
+AP
+´
+  ç i n
+  ´
+  1 i + n ^ 'f' STO
+  i f * f 1 - /
+  'f' PURGE
+  ª
+ª
+
+
+PA
+´
+  ç i n
+  ´
+  1 i + n ^ 'f' STO
+  f 1 - i f * / 
+  'f' PURGE
+  ª
+ª
+
+
+AF
+´
+  ç i n
+  ´
+  1 i + n ^ 'f' STO
+  i f 1 - / 
+  'f' PURGE
+  ª
+ª
+
+FA
+´
+  ç i n
+  ´
+  1 i + n ^ 'f' STO
+  f 1 - i /
+  'f' PURGE
+  ª
+ª
+
+IEQUIV
+  ´
+  ç i m
+  ´
+   i 1 + m ^ 1 - 
+  ª
+ª
+
+
+EAR
+´
+  ç APN m
+  ´
+   APN m / 1 + m ^ 1 - 
+  ª
+ª
+
+
+@ Calculates NET PRESENT VALUE NPV
+@ of a cahs flow given in a column matrix 
+@ 
+@ :param M:  Cash flow matrix column i.e.:[[-100][2000][5000]]
+@ :param r:  Interest rate in decimal
+@ :return:   NPV Net Present Value in the Stack
+@ 
+@  ( M r -- NPV )
+NPV
+´
+  ç M r 
+  ´
+
+M SIZE OBJç DROP DROP
+
+0 'S' STO
+  
+  @FOR LOOP
+  1 SWAP FOR N
+  
+  @ S= S+ M[I]/(1+r)**I
+  M N GET   
+  1 r + N 1 - ^ 
+  /  
+  S + 'S' STO  
+  NEXT
+  @Endfor
+  
+  ª
+  S
+  { S } PURGE
+ª
+
+
+EQUATIONS
+DIR 
+    SOLV
+    ´ STEQ 30 MENU ª
+    
+    CLC 
+    ´  { PV FV n r PMT } PURGE ª
+
+    FV2PV
+    'FV = PV*(1+r)^n' 
+ 
+
+    PMT2PV
+    'PV = PMT/r*(1 - 1/(1+r)^n)' 
+    
+    PMT2FV
+    'FV = PMT*((1+r)^n - 1)/r' 
+    
+    SIMP
+    'FV = PV*(1+r*n)' 
+       
+    
+END
+
+
+END

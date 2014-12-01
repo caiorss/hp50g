@@ -99,6 +99,8 @@ NPV
    M r 
   «
 
+M 'CFX' STO
+
 M SIZE OBJ DROP DROP
 
 0 'S' STO
@@ -117,6 +119,63 @@ M SIZE OBJ DROP DROP
   »
   S
   { S } PURGE
+»
+
+IRR
+«
+   M X0
+  «
+
+M 'CFX' STO
+
+{ X FX FDX ITX } PURGE
+
+
+
+M SIZE OBJ DROP DROP
+
+0 'FX' STO
+  
+  @FOR LOOP
+  1 SWAP FOR N
+  
+  @ S= S+ M[I]/(1+r)**I
+  M N GET   
+  '1+X' N 1 - ^   /  
+  FX + 'FX' STO  
+  NEXT
+  @Endfor
+  
+
+  FX DERVX 'FDX' STO
+  
+
+
+X0 'X' STO
+0 'ITX' STO
+FX EVAL ABS  'ERROR' STO
+
+@ While abs(f(x)) > 1e-3 and ITX < 300:
+WHILE  0.001 ERROR < ITX 100 < AND
+REPEAT
+ @ OVERALL RESULT  X = X - f(X)/fd(x)
+ X 
+ FX EVAL    @ f(x)
+ DUP ABS 'ERROR' STO
+ FDX EVAL   @ df(x)
+ / -
+ 'X' STO
+
+ @ ITX=ITX + 1
+ ITX 1 + 'ITX' STO 
+ 
+END
+
+X 'irr' STO
+irr
+{ X FX FDX ITX } PURGE
+
+  » 
 »
 
 

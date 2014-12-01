@@ -1,0 +1,77 @@
+%%HP: T(0)A(D)F(.);
+@ Argumentos:
+@ Author:
+@ E-mail:
+@ Version:
+@ Created using HPUserEdit 5 [www.unparche.com]
+
+
+[[-2.5] [1.2] [1.4] [1.5]]
+0.67
+
+«
+   M X0
+  «
+
+M 'CFX' STO
+
+{ X FX FDX ITX } PURGE
+
+
+
+M SIZE OBJ DROP DROP
+
+0 'FX' STO
+  
+  @FOR LOOP
+  1 SWAP FOR N
+  
+  @ S= S+ M[I]*X^(N-1)
+  M N GET   
+  'X' N 1 - ^  *  
+  FX + 'FX' STO  
+  NEXT
+  @Endfor
+  
+
+  FX DERVX 'FDX' STO
+  
+
+
+X0 'X' STO
+0 'ITX' STO
+FX EVAL ABS  'ERROR' STO
+
+@ While abs(f(x)) > 1e-3 and ITX < 300:
+WHILE  0.001 ERROR < ITX 100 < AND
+REPEAT
+ @ OVERALL RESULT  X = X - f(X)/fd(x)
+ X 
+ FX EVAL    @ f(x)
+ DUP ABS 'ERROR' STO
+ FDX EVAL   @ df(x)
+ / -
+ 'X' STO
+
+ @ ITX=ITX + 1
+ ITX 1 + 'ITX' STO 
+ 
+END
+
+@ IRR = 1/X - 1
+X INV 1 - 'irr' STO
+
+"IRR : "  100 irr * 2 RND STR  + "%" + 
+"
+ITX : "  ITX STR  + +
+" 
+ERR : "  ERROR 5 RND  STR + +
+
+MSGBOX
+
+{ X FX FDX ITX ERROR} PURGE
+
+  » 
+»
+
+EVAL

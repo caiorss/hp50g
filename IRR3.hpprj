@@ -68,7 +68,6 @@ ITX : "  ITX çSTR  + +
 ERR : "  ERROR 5 RND  çSTR + +
 
 MSGBOX
-
 { X FX FDX ITX ERROR} PURGE
 
   ª 

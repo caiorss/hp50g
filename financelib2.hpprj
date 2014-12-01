@@ -121,6 +121,8 @@ M SIZE OBJç DROP DROP
   { S } PURGE
 ª
 
+
+
 IRR
 ´
   ç M X0
@@ -139,9 +141,9 @@ M SIZE OBJç DROP DROP
   @FOR LOOP
   1 SWAP FOR N
   
-  @ S= S+ M[I]/(1+r)**I
+  @ S= S+ M[I]*X^(N-1)
   M N GET   
-  '1+X' N 1 - ^   /  
+  'X' N 1 - ^  *  
   FX + 'FX' STO  
   NEXT
   @Endfor
@@ -171,13 +173,21 @@ REPEAT
  
 END
 
-X 'irr' STO
+@ IRR = 1/X - 1
+X INV 1 - 'irr' STO
+
+"IRR : "  100 irr * 2 RND çSTR  + "%" + 
+"
+ITX : "  ITX çSTR  + +
+" 
+ERR : "  ERROR 5 RND  çSTR + +
+
+MSGBOX
 irr
-{ X FX FDX ITX } PURGE
+{ X FX FDX ITX ERROR} PURGE
 
   ª 
 ª
-
 
 EQUATIONS
 DIR 

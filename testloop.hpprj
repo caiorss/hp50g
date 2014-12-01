@@ -1,0 +1,16 @@
+%%HP: T(0)A(D)F(.);
+@ Argumentos:
+@ Author:
+@ E-mail:
+@ Version:
+@ Created using HPUserEdit 5 [www.unparche.com]
+
+«
+0 'idx' STO
+WHILE idx 3 < 
+REPEAT
+ idx 8 +
+ idx 1 + 'idx' STO
+END
+»
+EVAL

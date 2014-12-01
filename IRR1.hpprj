@@ -1,0 +1,32 @@
+%%HP: T(0)A(D)F(.);
+@ Argumentos:
+@ Author:
+@ E-mail:
+@ Version:
+@ Created using HPUserEdit 5 [www.unparche.com]
+
+[[-120 ] [200] [300]]
+
+´
+  ç M
+  ´
+
+M SIZE OBJç DROP DROP
+
+0 'FX' STO
+  
+  @FOR LOOP
+  1 SWAP FOR N
+  
+  @ S= S+ M[I]/(1+r)**I
+  M N GET   
+  '1+X' N 1 - ^   /  
+  FX + 'FX' STO  
+  NEXT
+  @Endfor
+  
+  ª
+  FX DERVX 'FDX' STO
+ª
+
+EVAL

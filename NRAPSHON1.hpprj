@@ -1,0 +1,35 @@
+%%HP: T(0)A(D)F(.);
+@ Argumentos:
+@ Author:
+@ E-mail:
+@ Version:
+@ Created using HPUserEdit 5 [www.unparche.com]
+
+
+
+«
+
+3.5 'X' STO
+
+0 'ITX' STO
+FX EVAL ABS  'ERROR' STO
+
+@ While abs(f(x)) > 1e-3 and ITX < 300:
+WHILE  0.001 ERROR < ITX 100 < AND
+REPEAT
+ @ OVERALL RESULT  X = X - f(X)/fd(x)
+ X 
+ FX EVAL    @ f(x)
+ DUP ABS 'ERROR' STO
+ FDX EVAL   @ df(x)
+ / -
+ 'X' STO
+
+ @ ITX=ITX + 1
+ ITX 1 + 'ITX' STO 
+ 
+END
+
+
+»
+EVAL
